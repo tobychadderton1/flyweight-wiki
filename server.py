@@ -6,7 +6,7 @@ import markdown
 import json
 
 app = Flask(__name__)
-app.config['SQL_ALCHEMY_DATABASE_URI'] = f'sqlite:///development.db'
+app.config['SQLALCHEMY_DATABASE_URI'] = f'sqlite:///development.db'
 
 settings = json.load(open("settings.json"))
 
