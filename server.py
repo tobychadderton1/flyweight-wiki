@@ -6,7 +6,7 @@ import markdown
 import json
 
 app = Flask(__name__)
-app.config['SQL_ALCHEMY_DATABASE_URI'] = f'sqlite:///development.db'
+app.config['SQLALCHEMY_DATABASE_URI'] = f'sqlite:///development.db'
 
 settings = json.load(open("settings.json"))
 
@@ -15,6 +15,11 @@ db = SQLAlchemy(app)
 @app.route("/")
 def home():
     return render_template("home.html", wiki_name=settings["wiki-name"], wiki_logo=settings["wiki-logo"])
+
+@app.route("/article")
+def article(id="test"):
+    body = markdown.markdown(open("test.md", "r", encoding='utf8').read())
+    return render_template("article.html", wiki_name=settings["wiki-name"], wiki_logo=settings["wiki-logo"], body=Markup(body))
 
 @app.route("/create-article", methods=["GET", "POST"])
 def create_article():
