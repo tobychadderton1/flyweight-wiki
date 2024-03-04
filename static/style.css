@@ -1,5 +1,22 @@
 #centered-page
 {
-    width: 70%;
+    width: 60%;
     margin: auto;
+}
+
+#page-header
+{
+    display: grid;
+    grid-template-columns: 10% 5%;
+}
+
+#wiki-logo
+{
+    grid-column: 1;
+    width: 100%;
+}
+
+#wiki-title
+{
+    grid-column: 3;
 }
