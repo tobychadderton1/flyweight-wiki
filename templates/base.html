@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+
+<html>
+
+<head>
+
+<title>{{ wiki_name }}</title>
+
+<script>
+</script>
+
+<style>
+</style>
+
+<link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+
+<body>
+
+<div id="centered-page">
+
+<div id="page-header">
+    <img src="{{ url_for('static', filename=wiki_logo) }}">
+
+    <h1>{{ wiki_name }}</h1>
+</div>
+
+<div id="content-container">
+{% block content %} {% endblock %}
+</div>
+
+</div>
+
+</body>
+
+</html>
