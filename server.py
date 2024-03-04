@@ -14,7 +14,7 @@ db = SQLAlchemy(app)
 
 @app.route("/")
 def home():
-    return render_template("base.html", wiki_name=settings["wiki-name"], wiki_logo=settings["wiki-logo"])
+    return render_template("home.html", wiki_name=settings["wiki-name"], wiki_logo=settings["wiki-logo"])
 
 @app.route("/create-article", methods=["GET", "POST"])
 def create_article():
