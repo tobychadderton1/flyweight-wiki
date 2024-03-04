@@ -16,15 +16,15 @@ db = SQLAlchemy(app)
 def home():
     return render_template("base.html", wiki_name=settings["wiki-name"], wiki_logo=settings["wiki-logo"])
 
-@app.route("/create-article")
+@app.route("/create-article", methods=["GET", "POST"])
 def create_article():
     return "Create Article Page"
 
-@app.route("/update-article")
+@app.route("/update-article", methods=["GET", "POST"])
 def update_article():
     return "Update Article Page"
 
-@app.route("/delete-article")
+@app.route("/delete-article", methods=["POST"])
 def delete_article():
     return "Delete Article Page"
 
