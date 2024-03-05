@@ -1,12 +1,12 @@
 from flask import Flask, render_template, url_for, request, redirect
 from markupsafe import Markup
 from flask_sqlalchemy import SQLAlchemy
-from models import Article
 import markdown
 import json
 
 app = Flask(__name__)
 app.config['SQLALCHEMY_DATABASE_URI'] = f'sqlite:///development.db'
+app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 
 settings = json.load(open("settings.json"))
 
@@ -24,16 +24,19 @@ class Article(db.Model):
         self.content = content
 
 
-@app.route("/")
-def home():
-    articles = Article.query
-    print(articles)
-    return render_template("home.html", wiki_name=settings["wiki-name"], wiki_logo=settings["wiki-logo"])
 
-@app.route("/article")
-def article(id="test"):
-    body = markdown.markdown(open("test.md", "r", encoding='utf8').read())
-    return render_template("article.html", wiki_name=settings["wiki-name"], wiki_logo=settings["wiki-logo"], body=Markup(body))
+@app.route("/", methods=["GET"])
+def home():
+    articles = Article.query.all()
+    return render_template("home.html", articles=articles, wiki_name=settings["wiki-name"], wiki_logo=settings["wiki-logo"])
+
+@app.route("/article", methods=["GET"])
+def article():
+    print("ROUTED")
+    id = request.args.get("id")
+    print(id)
+    article = Article.query.filter(Article.id == id).first()
+    return render_template("article.html", article=article, wiki_name=settings["wiki-name"], wiki_logo=settings["wiki-logo"])
 
 @app.route("/create-article", methods=["GET", "POST"])
 def create_article():
@@ -56,4 +59,6 @@ def delete_article():
 
 
 if __name__ == "__main__":
+    with app.app_context():
+        db.create_all()
     app.run(host="0.0.0.0", port=5000)
