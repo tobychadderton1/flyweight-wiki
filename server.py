@@ -23,7 +23,7 @@ class Article(db.Model):
         self.name = name
         self.content = content
 
-
+# Flask routes
 
 @app.route("/", methods=["GET"])
 def home():
@@ -58,6 +58,7 @@ def update_article():
 def delete_article():
     return "Delete Article Page"
 
+# Mainloop
 
 if __name__ == "__main__":
     with app.app_context():

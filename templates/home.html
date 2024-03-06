@@ -1,20 +1,19 @@
 {% extends 'base.html' %}
 
 {% block content %}
-<div class="post-billboard">
 
-<h2>Temp Article</h2>
-<hr>
-<p>
-This is a temporary placeholder to see what an article billboard will look like
-</p>
-
-</div>
-<a href="/create-article">Create An Article!</a>
 <h1> Articles </h1>
-<ul>
+
 {% for article in articles %}
-<li><a href="/article?id={{article.id}}">{{article.name}}</a></li>
+<div class="post-billboard">
+    <a href="/article?id={{article.id}}">
+        <h2>{{ article.name }}</h2>
+    </a>
+    <hr>
+    <p>
+        Article alt text (new database field??) should go here
+    </p>
+</div>
+
 {% endfor %}
-</ul>
 {% endblock %}

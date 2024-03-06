@@ -21,6 +21,29 @@
     grid-column: 3;
 }
 
+#content-container
+{
+    margin-top: 20px;
+}
+
+#create-article
+{
+    font-style: bold;
+    text-decoration: none;
+    color: white;
+    padding: 10px;
+    background: black;
+    transition: 0.5s;
+    border-radius: 10px;
+}
+
+#create-article:hover
+{
+    color: black;
+    background: white;
+    text-decoration: underline;
+}
+
 .post-billboard
 {
     display: block;
