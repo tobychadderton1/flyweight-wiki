@@ -36,7 +36,8 @@ def article():
     id = request.args.get("id")
     print(id)
     article = Article.query.filter(Article.id == id).first()
-    return render_template("article.html", article=article, wiki_name=settings["wiki-name"], wiki_logo=settings["wiki-logo"])
+    content = Markup(markdown.markdown(article.content))
+    return render_template("article.html", article_name=article.name, article_content=content, wiki_name=settings["wiki-name"], wiki_logo=settings["wiki-logo"])
 
 @app.route("/create-article", methods=["GET", "POST"])
 def create_article():
@@ -47,7 +48,7 @@ def create_article():
         db.session.commit()
         return redirect(url_for("home"))
     else:
-        return render_template("create_article.html")
+        return render_template("create_article.html", wiki_name=settings["wiki-name"], wiki_logo=settings["wiki-logo"])
 
 @app.route("/update-article", methods=["GET", "POST"])
 def update_article():
