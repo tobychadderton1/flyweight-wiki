@@ -24,6 +24,18 @@ class Article(db.Model):
         self.name = name
         self.content = content
 
+class User(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    username = db.Column(db.Text)
+
+    def __init__(self, name, content):
+        self.username = name
+
+class Bookmark(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    user_id = db.Column(db.Integer, db.ForeignKey('user.id'))
+    article_id = db.Column(db.Integer, db.ForeignKey('article.id'))
+
 # Flask routes
 
 @app.route("/", methods=["GET"])
@@ -75,6 +87,30 @@ def delete_article():
         db.session.commit()
         flash("Article Successfully Deleted!")
     return redirect(url_for("home"))
+
+@app.route("/create-bookmark")
+def create_bookmark():
+    return "Create Bookmark"
+
+@app.route("/update-bookmark")
+def update_bookmark():
+    return "Update Bookmark"
+
+@app.route("/delete-bookmark")
+def delete_bookmark():
+    return "Delete Bookmark"
+
+@app.route("/login")
+def login():
+    pass
+
+@app.route("/register")
+def register():
+    pass
+
+@app.route("/account")
+def account():
+    pass
 
 # Mainloop
 
