@@ -3,10 +3,20 @@
 {% block content %}
 
 <script>
+var xhr = new XMLHttpRequest();
+xhr.open("POST", "/generate-preview", true);
+
 function generate_preview()
 {
-
+    let formdata = new FormData()
+    formdata.set("Content", document.getElementsByName("content")[0].value)
+    xhr.send(formdata);
 }
+
+xhr.onload = function() {
+    document.getElementById("post-preview").innerHTML = this.responseText
+}
+
 </script>
 
 <h1> Create an Article </h1>
@@ -22,7 +32,7 @@ function generate_preview()
         </form>
     </div>
     <div id="post-preview-div">
-        <button id="preview-button" onclick="">Generate Preview</button>
+        <button id="preview-button" onclick="generate_preview()">Generate Preview</button>
         <div id="post-preview"></div>
     </div>
 </div>

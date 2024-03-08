@@ -88,6 +88,13 @@ def delete_article():
         flash("Article Successfully Deleted!")
     return redirect(url_for("home"))
 
+@app.route("/generate-preview", methods=["POST"])
+def generate_preview():
+    body = request.form["Content"]
+    print(body)
+    content = Markup(markdown.markdown(body))
+    return content
+
 @app.route("/create-bookmark")
 def create_bookmark():
     return "Create Bookmark"
