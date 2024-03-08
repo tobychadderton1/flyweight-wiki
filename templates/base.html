@@ -24,7 +24,15 @@
 
 <h1 id="wiki-title">{{ wiki_name }}</h1>
 </div>
-
+{% with messages = get_flashed_messages() %}
+    {% if messages %}
+    <ul>
+        {% for message in messages %}
+            <li><strong>{{ message }}</strong></li>
+        {% endfor %}
+    </ul>
+    {% endif %}
+{% endwith %}
 <div id="content-container">
 <center><a id="create-article" href="/create-article">Create An Article!</a></center>
 

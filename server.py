@@ -1,4 +1,4 @@
-from flask import Flask, render_template, url_for, request, redirect
+from flask import Flask, render_template, url_for, request, redirect, flash
 from markupsafe import Markup
 from flask_sqlalchemy import SQLAlchemy
 import markdown
@@ -7,6 +7,7 @@ import json
 app = Flask(__name__)
 app.config['SQLALCHEMY_DATABASE_URI'] = f'sqlite:///development.db'
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
+app.config['SECRET_KEY'] = "dev"
 
 settings = json.load(open("settings.json"))
 
@@ -34,7 +35,6 @@ def home():
 def article():
     print("ROUTED")
     id = request.args.get("id")
-    print(id)
     article = Article.query.filter(Article.id == id).first()
     content = Markup(markdown.markdown(article.content))
     return render_template("article.html", article_name=article.name, article_content=content, wiki_name=settings["wiki-name"], wiki_logo=settings["wiki-logo"])
@@ -46,17 +46,35 @@ def create_article():
         article = Article(name=request.form["name"], content=request.form["content"])
         db.session.add(article)
         db.session.commit()
+        flash("Article Successfully Created!")
         return redirect(url_for("home"))
     else:
         return render_template("create_article.html", wiki_name=settings["wiki-name"], wiki_logo=settings["wiki-logo"])
 
 @app.route("/update-article", methods=["GET", "POST"])
 def update_article():
-    return "Update Article Page"
+    if request.method == "POST":
+        id = request.form["id"]
+        article = Article.query.filter(Article.id == id).first()
+        article.name = request.form["name"]
+        article.content = request.form["content"]
+        db.session.commit()
+        flash("Article Successfully Updated!")
+        return redirect(url_for("update_article", id=id))
+    else:
+        id = request.args.get("id")
+        article = Article.query.filter(Article.id == id).first()
+        return render_template("update_article.html", id=id, article_name=article.name, article_content=article.content, wiki_name=settings["wiki-name"], wiki_logo=settings["wiki-logo"])
 
-@app.route("/delete-article", methods=["POST"])
+@app.route("/delete-article", methods=["GET"])
 def delete_article():
-    return "Delete Article Page"
+    id = request.args.get("id")
+    article = Article.query.filter(Article.id == id).first()
+    if article is not None:
+        db.session.delete(article)
+        db.session.commit()
+        flash("Article Successfully Deleted!")
+    return redirect(url_for("home"))
 
 # Mainloop
 
