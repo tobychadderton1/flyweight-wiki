@@ -2,16 +2,29 @@
 
 {% block content %}
 
+<script>
+function generate_preview()
+{
+
+}
+</script>
+
 <h1> Create an Article </h1>
 
-<center>
-<form method="post" action="/create-article">
-    <label for="name">Name</label><br>
-    <input type="text" name="name"><br><br>
-    <label for="content">Content</label><br>
-    <textarea name="content"></textarea><br>
-    <input type="submit" value="Create Article!">
-</form>
-</center>
+<div id="create-post-grid">
+    <div id="post-div">
+        <form method="post" action="/create-article">
+            <label for="name">Name</label><br>
+            <input type="text" name="name"><br><br>
+            <label for="content">Content</label><br>
+            <textarea name="content"></textarea><br>
+            <input type="submit" value="Create Article!">
+        </form>
+    </div>
+    <div id="post-preview-div">
+        <button id="preview-button" onclick="">Generate Preview</button>
+        <div id="post-preview"></div>
+    </div>
+</div>
 
 {% endblock %}

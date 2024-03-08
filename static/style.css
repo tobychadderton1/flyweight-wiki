@@ -53,3 +53,25 @@
     padding-right: 5px;
     margin-top: 5px;
 }
+
+#create-post-grid
+{
+    display: grid;
+    grid-template-columns: 47.5% 5% 47.5%;
+}
+
+#post-div
+{
+    padding: 10px;
+    border: 2px solid black;
+    border-radius: 5px;
+    grid-column: 0;
+}
+
+#post-preview-div
+{
+    padding:10px;
+    border: 2px solid black;
+    border-radius: 5px;
+    grid-column: 3;
+}
