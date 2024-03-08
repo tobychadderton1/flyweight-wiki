@@ -5,14 +5,14 @@
 <h1> Edit an Article </h1>
 
 <center>
-<form method="post" action="/update-article">
-    <label for="name">Name</label><br>
-    <input type="text" name="name" value="{{ article_name }}"><br><br>
-    <label for="content" >Content</label><br>
-    <textarea name="content" >{{ article_content }}</textarea><br>
-    <input type="submit" value="Update Article!">
-    <input type="hidden" name="id" value="{{ id }}">
-</form>
+    <form method="post" action="/update-article">
+        <label for="name">Name</label><br>
+        <input type="text" name="name" value="{{ article_name }}"><br><br>
+        <label for="content">Content</label><br>
+        <textarea name="content">{{ article_content }}</textarea><br>
+        <input type="submit" value="Update Article!">
+        <input type="hidden" name="id" value="{{ id }}">
+    </form>
 </center>
 <a href="delete-article?id={{ id }}">Delete Article</a>
 {% endblock %}

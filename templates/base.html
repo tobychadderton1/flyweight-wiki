@@ -1,46 +1,37 @@
 <!DOCTYPE html>
-
 <html>
 
 <head>
-
-<title>{{ wiki_name }}</title>
-
-<script>
-</script>
-
-<style>
-</style>
-
-<link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <title>{{ wiki_name }}</title>
+    <script>
+    </script>
+    <style>
+    </style>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
 </head>
 
 <body>
+    <div id="centered-page">
+        <div id="page-header">
+            <img id="wiki-logo" src="{{ url_for('static', filename=wiki_logo) }}">
 
-<div id="centered-page">
-
-<div id="page-header">
-<img id="wiki-logo" src="{{ url_for('static', filename=wiki_logo) }}">
-
-<h1 id="wiki-title">{{ wiki_name }}</h1>
-</div>
-{% with messages = get_flashed_messages() %}
-    {% if messages %}
-    <ul>
-        {% for message in messages %}
+            <h1 id="wiki-title">{{ wiki_name }}</h1>
+        </div>
+        {% with messages = get_flashed_messages() %}
+        {% if messages %}
+        <ul>
+            {% for message in messages %}
             <li><strong>{{ message }}</strong></li>
-        {% endfor %}
-    </ul>
-    {% endif %}
-{% endwith %}
-<div id="content-container">
-<center><a id="create-article" href="/create-article">Create An Article!</a></center>
+            {% endfor %}
+        </ul>
+        {% endif %}
+        {% endwith %}
+        <div id="content-container">
+            <center><a id="create-article" href="/create-article">Create An Article!</a></center>
 
-{% block content %} {% endblock %}
-</div>
-
-</div>
-
+            {% block content %} {% endblock %}
+        </div>
+    </div>
 </body>
 
 </html>
